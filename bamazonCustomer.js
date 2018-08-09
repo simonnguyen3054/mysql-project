@@ -50,24 +50,27 @@ function runApp() {
           }
         ])
         .then(function(data) {
+
           for (var i = 0; i < products.length; i++) {
-            if (
-              products[i].item_id == data.product_id &&
-              products[i].stock_quantity > data.quantity
-            ) {
-              console.log('We have enough stock', );
-              console.log(`Order Summary: Quantity = ${data.quantity} | Total Price: $${data.quantity * products[i].price}`);
-              var remaining_stock_quantity = products[i].stock_quantity - data.quantity;
-              var query = connection.query(
-                'UPDATE products SET ? WHERE ?',
-                [
-                  {stock_quantity: remaining_stock_quantity},
-                  {item_id: data.product_id}
-                ],
-                function(err, res) {
-                  console.log("Thank you for your business!");
-                }
-              );
+            if (products[i].item_id == data.product_id) {
+              if (products[i].stock_quantity > data.quantity) {
+                console.log('We have enough stock\n', );
+                console.log(`Order Summary: Quantity = ${data.quantity} | Total Price: $${data.quantity * products[i].price}\n`);
+                var remaining_stock_quantity = products[i].stock_quantity - data.quantity;
+                var query = connection.query(
+                  'UPDATE products SET ? WHERE ?',
+                  [
+                    {stock_quantity: remaining_stock_quantity},
+                    {item_id: data.product_id}
+                  ],
+                  function(err, res) {
+                    console.log("Thank you for your business!");
+                  }
+                );
+              } else {
+                console.log("Insufficient Stock!")
+                console.log(`Available Stock: ${products[i].stock_quantity}`);
+              }
             }
           }
           connection.end();

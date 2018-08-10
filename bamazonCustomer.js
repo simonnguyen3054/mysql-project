@@ -24,6 +24,10 @@ connection.connect(function(err) {
 function runApp() {
   console.log('App is running...');
 
+  customerOrder();
+}
+
+function customerOrder() {
   connection.query(
     'SELECT item_id, product_name, price, stock_quantity FROM products',
     function(err, products) {
@@ -50,7 +54,6 @@ function runApp() {
           }
         ])
         .then(function(data) {
-
           for (var i = 0; i < products.length; i++) {
             if (products[i].item_id == data.product_id) {
               if (products[i].stock_quantity > data.quantity) {

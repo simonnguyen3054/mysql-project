@@ -29,7 +29,7 @@ function runApp() {
 
 function customerOrder() {
   connection.query(
-    'SELECT item_id, product_name, price, stock_quantity FROM products',
+    'SELECT item_id, product_name, price, stock_quantity, product_sales FROM products',
     function(err, products) {
       console.log("Here's a list of items we carry in our store:\n");
       for (var i = 0; i < products.length; i++) {
@@ -57,16 +57,23 @@ function customerOrder() {
           for (var i = 0; i < products.length; i++) {
             if (products[i].item_id == data.product_id) {
               if (products[i].stock_quantity > data.quantity) {
-                console.log('We have enough stock\n', );
-                console.log(`Order Summary: Quantity = ${data.quantity} | Total Price: $${data.quantity * products[i].price}\n`);
+                var total_price = data.quantity * products[i].price;
+                var total_products_sales = products[i].product_sales + total_price;
                 var remaining_stock_quantity = products[i].stock_quantity - data.quantity;
+                console.log('We have enough stock\n', );
+                console.log(`Order Summary: Quantity = ${data.quantity} | Total Price: $${total_price}\n`);
                 var query = connection.query(
                   'UPDATE products SET ? WHERE ?',
                   [
-                    {stock_quantity: remaining_stock_quantity},
+                    {stock_quantity: remaining_stock_quantity,
+                     product_sales: total_products_sales
+                    },
                     {item_id: data.product_id}
                   ],
                   function(err, res) {
+                    if (err) {
+                      console.log(err);
+                    } 
                     console.log("Thank you for your business!");
                   }
                 );

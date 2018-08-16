@@ -140,8 +140,8 @@ function manageProducts() {
             },
             {
               type: 'input',
-              message: 'Enter the Department Name',
-              name: 'department'
+              message: 'Enter the Department ID',
+              name: 'department_id'
             },
             {
               type: 'input',
@@ -155,10 +155,12 @@ function manageProducts() {
               {
                 product_name: data.product,
                 price: data.price,
-                department_name: data.department,
-                stock_quantity: data.quantity
+                department_id: data.department_id,
+                stock_quantity: data.quantity,
+                product_sales: 0
               },
               function(err, res) {
+                console.log(err);
                 console.log('New product item has updated to the inventory!');
               }
             );

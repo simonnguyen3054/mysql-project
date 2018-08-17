@@ -15,8 +15,8 @@ Thre are thee node commands in this project that the user and owner has access t
   - Add New Product: Add a new product line to the existing department
 ``` node bamazonSupervisor.js ```
 - This command list out two options for the supervisor to interact with (View Product Sales by Department, Create New Department).
- - View Product Sales by Department: Make a new table listing out the department, total revenue, and total profit.
- - Create New Department: This allows the supervisor to create a new department. 
+  - View Product Sales by Department: Make a new table listing out the department, total revenue, and total profit.
+  - Create New Department: This allows the supervisor to create a new department.
 # How to set up the project?
 1. Download the github repo
 2. Install the dependencies ``` npm install ```

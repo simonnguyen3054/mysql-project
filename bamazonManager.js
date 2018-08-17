@@ -155,12 +155,14 @@ function manageProducts() {
               {
                 product_name: data.product,
                 price: data.price,
-                department_id: data.department_id,
+                dept_id: data.department_id,
                 stock_quantity: data.quantity,
                 product_sales: 0
               },
               function(err, res) {
-                console.log(err);
+                if (err) {
+                  console.log(err);
+                }
                 console.log('New product item has updated to the inventory!');
               }
             );
